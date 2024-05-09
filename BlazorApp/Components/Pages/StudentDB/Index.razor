@@ -1,0 +1,45 @@
+﻿@page "/sudentindex"
+@using BlazorApp.Data
+@using Microsoft.EntityFrameworkCore
+@inject MyDBContext DB
+
+<h3>Index</h3>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Oktatási azonosító</th>
+            <th>Név</th>
+            <th>szül. idő</th>
+            <th>Város</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in DB.Students)
+        {
+            <tr>
+                <td>@data.StudentId</td>
+                <td>@data.GetFullname()</td>
+                <td>@data.Birthday.ToShortDateString()</td>
+                <td>@data.City</td>
+            </tr>        
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="card-container mt-2 col-2">
+        @foreach (var item in DB.Students)
+        {
+            <div class="card">
+                <div>id: @item.StudentId</div>
+                <div>Név: @item.GetFullname()</div>
+                <div>Szül.idő: @item.Birthday.ToShortDateString()</div>
+                <div>Város: @item.City</div>
+            </div>            
+        }
+    </div>
+</div>
+
+
+
