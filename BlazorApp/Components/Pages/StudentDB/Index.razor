@@ -1,10 +1,19 @@
 ﻿@page "/sudentindex"
 @using BlazorApp.Data
 @using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
 @inject MyDBContext DB
+@rendermode InteractiveServer
 
 <h3>Index</h3>
 <hr />
+<QuickGrid Class="table" Items="DB.Students">
+    <PropertyColumn Title="OM azonosító" Property="x=>x.StudentId" Sortable="true"/>
+    <PropertyColumn Title="Név" Property="x=>x.GetFullname()"/>
+    <PropertyColumn Title="Szül. idő" Property="x=>x.Birthday" Sortable="true" Format="yyyy.MM.dd"/>  
+    <PropertyColumn Title="Város" Property="x=>x.City" Sortable="true"/>
+</QuickGrid>
+
 <table class="table">
     <thead>
         <tr>
@@ -22,7 +31,7 @@
                 <td>@data.GetFullname()</td>
                 <td>@data.Birthday.ToShortDateString()</td>
                 <td>@data.City</td>
-            </tr>        
+            </tr>
         }
     </tbody>
 </table>
@@ -36,7 +45,7 @@
                 <div>Név: @item.GetFullname()</div>
                 <div>Szül.idő: @item.Birthday.ToShortDateString()</div>
                 <div>Város: @item.City</div>
-            </div>            
+            </div>
         }
     </div>
 </div>

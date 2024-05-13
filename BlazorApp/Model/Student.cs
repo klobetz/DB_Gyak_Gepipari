@@ -22,7 +22,7 @@ namespace BlazorApp.Model
 
         [Required]
         [MaxLength(50)]
-        public string? City { get; set; }
+        public string City { get; set; }
 
         public string GetFullname()
         {
