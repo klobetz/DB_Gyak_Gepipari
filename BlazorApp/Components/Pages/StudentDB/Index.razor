@@ -7,12 +7,24 @@
 
 <h3>Index</h3>
 <hr />
-<QuickGrid Class="table" Items="DB.Students">
+<div class="page-size-chooser">
+    Items per page:
+    <select @bind="@pagination.ItemsPerPage">
+        <option>2</option>
+        <option>10</option>
+        <option>20</option>
+        <option>50</option>
+    </select>
+</div>
+
+<QuickGrid Class="table" Items="DB.Students" Pagination="@pagination">
     <PropertyColumn Title="OM azonosító" Property="x=>x.StudentId" Sortable="true"/>
     <PropertyColumn Title="Név" Property="x=>x.GetFullname()"/>
     <PropertyColumn Title="Szül. idő" Property="x=>x.Birthday" Sortable="true" Format="yyyy.MM.dd"/>  
     <PropertyColumn Title="Város" Property="x=>x.City" Sortable="true"/>
 </QuickGrid>
+
+<Paginator State="@pagination" />
 
 <table class="table">
     <thead>
@@ -50,5 +62,7 @@
     </div>
 </div>
 
-
+@code{
+    PaginationState pagination = new PaginationState { ItemsPerPage = 2 };
+}
 
