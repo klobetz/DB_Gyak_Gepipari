@@ -1,0 +1,62 @@
+﻿@page "/createstudent"
+@using BlazorApp.Model
+@inject BlazorApp.Data.MyDBContext DB
+@inject NavigationManager NavManager
+
+<h3>Új tanuló felvétele az adatbázisba</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="StudentDB" OnValidSubmit="AddStudent" FormName="CreateStudent" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger"/>
+
+            <div class="mb-3">
+                <label for="om" class="form-label">OM azonosító</label>
+                <InputNumber id="om" @bind-Value="StudentDB.StudentId" class="form-control"/>
+                <ValidationMessage For="()=>StudentDB.StudentId" class="text-danger"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="fname" class="form-label">Vezetéknév</label>
+                <InputText id="fname" @bind-Value="StudentDB.FName" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.FName" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="lname" class="form-label">Keresztnév</label>
+                <InputText id="lname" @bind-Value="StudentDB.LName" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.LName" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Bd" class="form-label">Szül. dátum</label>
+                <InputDate id="Bd" @bind-Value="StudentDB.Birthday" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.Birthday" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="city" class="form-label">Város</label>
+                <InputText id="city" @bind-Value="StudentDB.City" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.City" class="text-danger" />
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-4">Mentés</button>
+            <a href="/sudentindex" class="btn btn-success mb-4">Vissza</a>
+        </EditForm>
+    </div>
+</div>
+
+
+
+@code {
+    [SupplyParameterFromForm]
+    public Student StudentDB { get; set; } = new();
+
+    private async Task AddStudent()
+    {
+        DB.Students.Add(StudentDB);
+        await DB.SaveChangesAsync();
+        NavManager.NavigateTo("/sudentindex");
+    }
+}

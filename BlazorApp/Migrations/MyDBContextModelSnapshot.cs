@@ -26,8 +26,7 @@ namespace BlazorApp.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("Birthday")
-                        .IsRequired()
+                    b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("City")

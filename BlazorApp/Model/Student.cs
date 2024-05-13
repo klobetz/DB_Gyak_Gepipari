@@ -4,10 +4,9 @@ namespace BlazorApp.Model
 {
     public class Student
     {
-        [MinLength(12)]
-        [MaxLength(12)]
+        [RegularExpression(@"^.{12,12}$")]       
         [Required]
-        public Int64 StudentId { get; set; }
+        public long StudentId { get; set; }
 
         [Required]
         [MaxLength(50)]
