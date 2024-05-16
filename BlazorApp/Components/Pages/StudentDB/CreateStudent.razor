@@ -18,6 +18,12 @@
             </div>
 
             <div class="mb-3">
+                <label for="om2" class="form-label">OM2 azonosító</label>
+                <InputText id="om2" @bind-Value="StudentDB.StudentId2" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.StudentId2" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
                 <label for="fname" class="form-label">Vezetéknév</label>
                 <InputText id="fname" @bind-Value="StudentDB.FName" class="form-control" />
                 <ValidationMessage For="()=>StudentDB.FName" class="text-danger" />

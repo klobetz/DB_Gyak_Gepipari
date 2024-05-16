@@ -8,6 +8,12 @@ namespace BlazorApp.Model
         [Required]
         public long StudentId { get; set; }
 
+        
+        [Required]
+        [RegularExpression(@"^\d{12}$", ErrorMessage ="valami")]
+        [MaxLength(12)]
+        public string? StudentId2 { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string? FName { get; set; }
