@@ -26,6 +26,10 @@
     <PropertyColumn Title="Név" Property="x=>x.GetFullname()"/>
     <PropertyColumn Title="Szül. idő" Property="x=>x.Birthday" Sortable="true" Format="yyyy.MM.dd"/>  
     <PropertyColumn Title="Város" Property="x=>x.City" Sortable="true"/>
+
+    <TemplateColumn Context="student" Title="szerkesztés">
+        <a href="@($"deletestudent?Id={student.StudentId}")" class="btn btn-danger">delete</a>
+    </TemplateColumn>
 </QuickGrid>
 
 <Paginator State="@pagination" />
