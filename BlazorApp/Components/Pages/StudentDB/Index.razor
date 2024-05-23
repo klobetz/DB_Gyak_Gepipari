@@ -28,6 +28,7 @@
     <PropertyColumn Title="Város" Property="x=>x.City" Sortable="true"/>
 
     <TemplateColumn Context="student" Title="szerkesztés">
+        <a href="@($"editstudent?Id={student.StudentId}")" class="btn btn-info">edit</a>
         <a href="@($"deletestudent?Id={student.StudentId}")" class="btn btn-danger">delete</a>
     </TemplateColumn>
 </QuickGrid>

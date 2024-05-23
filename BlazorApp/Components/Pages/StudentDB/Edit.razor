@@ -1,0 +1,55 @@
+﻿@page "/editstudent"
+@using Microsoft.EntityFrameworkCore
+@using BlazorApp.Model
+@inject BlazorApp.Data.MyDBContext DB
+@inject NavigationManager NavManager
+@rendermode InteractiveServer
+
+<h3>Edit</h3>
+<hr />
+@if(EditStudentDB is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="EditStudentDB" OnValidSubmit="UpdateStudent" FormName="update" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />                
+
+                <div class="mb-3">
+                    <label for="om" class="form-label">OM azonosító</label>
+                    <InputNumber id="om" @bind-Value="EditStudentDB.StudentId" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.StudentId" class="text-danger" />
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+
+@code {
+    [SupplyParameterFromQuery]
+    public long Id { get; set; }
+
+    [SupplyParameterFromForm]
+    public Student? EditStudentDB { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        EditStudentDB = await DB.Students.FirstOrDefaultAsync(e => e.StudentId == Id);
+        if (EditStudentDB is null)
+        {
+            NavManager.NavigateTo("/Error");
+        }
+
+    }
+    public async Task UpdateStudent()
+    {
+        
+    }
+
+}
