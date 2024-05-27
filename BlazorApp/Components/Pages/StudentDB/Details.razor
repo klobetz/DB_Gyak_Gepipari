@@ -1,0 +1,56 @@
+﻿@page "/detailsstudent"
+@using BlazorApp.Model
+@using Microsoft.EntityFrameworkCore
+@inject BlazorApp.Data.MyDBContext DB
+@inject NavigationManager NavManager
+@rendermode InteractiveServer
+
+<h3>Details</h3>
+<hr />
+<div>
+    @if (student is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">OM azonosító</dt>
+            <dd class="col-sm-10">@student.StudentId</dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-2">Név</dt>
+            <dd class="col-sm-10">@student.GetFullname()</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Szükletési év</dt>
+            <dd class="col-sm-10">@student.Birthday</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Város</dt>
+            <dd class="col-sm-10">@student.City</dd>
+        </dl>
+
+
+        <a href="@($"editstudent?Id={student.StudentId}")" class="btn btn-success">edit</a>
+        <a href="/sudentindex" class="btn btn-primary">Back to Student List</a>
+        
+    }
+</div>
+
+@code {
+    Student? student;
+
+    [SupplyParameterFromQuery]
+    public long Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        student = await DB.Students.FirstOrDefaultAsync(m => m.StudentId==Id);
+        if (student is null)
+        {
+            NavManager.NavigateTo("Not found");
+        }
+    }
+}

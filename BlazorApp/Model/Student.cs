@@ -9,7 +9,7 @@ namespace BlazorApp.Model
         public long StudentId { get; set; }
 
         
-        [Required]
+        
         [RegularExpression(@"^\d{12}$", ErrorMessage ="valami")]
         [MaxLength(12)]
         public string? StudentId2 { get; set; }
@@ -23,7 +23,7 @@ namespace BlazorApp.Model
         public string? LName { get; set; }
 
         [Required]
-        public DateTime Birthday { get; set; } = DateTime.Now;
+        public DateTime Birthday { get; set; }
 
         [Required]
         [MaxLength(50)]

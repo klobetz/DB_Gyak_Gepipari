@@ -10,30 +10,37 @@
 
 <a href="/createstudent" class="btn btn-primary mb-4">Új tanuló</a>
 
-<div class="page-size-chooser">
-    Items per page:
-    <select @bind="@pagination.ItemsPerPage">
-        <option>5</option>
-        <option>10</option>
-        <option>20</option>
-        <option>50</option>
-    </select>
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-size-chooser">
+            Items per page:
+            <select @bind="@pagination.ItemsPerPage">
+                <option>5</option>
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+            </select>
+        </div>
+
+        <QuickGrid Class="table" Items="DB.Students" Pagination="@pagination">
+            <PropertyColumn Title="OM azonosító" Property="x=>x.StudentId" Sortable="true" />
+            <PropertyColumn Title="OM2 azonosító" Property="x=>x.StudentId2" Sortable="true" />
+            <PropertyColumn Title="Név" Property="x=>x.GetFullname()" />
+            <PropertyColumn Title="Szül. idő" Property="x=>x.Birthday" Sortable="true" Format="yyyy.MM.dd" />
+            <PropertyColumn Title="Város" Property="x=>x.City" Sortable="true" />
+
+            <TemplateColumn Context="student" Title="szerkesztés">
+                <a href="@($"editstudent?Id={student.StudentId}")" class="btn btn-info">edit</a>
+                <a href="@($"detailsstudent?Id={student.StudentId}")" class="btn btn-success">detals</a>
+                <a href="@($"deletestudent?Id={student.StudentId}")" class="btn btn-danger">delete</a>
+            </TemplateColumn>
+        </QuickGrid>
+
+        <Paginator State="@pagination" />
+
+    </div>
 </div>
 
-<QuickGrid Class="table" Items="DB.Students" Pagination="@pagination">
-    <PropertyColumn Title="OM azonosító" Property="x=>x.StudentId" Sortable="true"/>
-    <PropertyColumn Title="OM2 azonosító" Property="x=>x.StudentId2" Sortable="true"/>
-    <PropertyColumn Title="Név" Property="x=>x.GetFullname()"/>
-    <PropertyColumn Title="Szül. idő" Property="x=>x.Birthday" Sortable="true" Format="yyyy.MM.dd"/>  
-    <PropertyColumn Title="Város" Property="x=>x.City" Sortable="true"/>
-
-    <TemplateColumn Context="student" Title="szerkesztés">
-        <a href="@($"editstudent?Id={student.StudentId}")" class="btn btn-info">edit</a>
-        <a href="@($"deletestudent?Id={student.StudentId}")" class="btn btn-danger">delete</a>
-    </TemplateColumn>
-</QuickGrid>
-
-<Paginator State="@pagination" />
 
 <table class="table">
     <thead>
