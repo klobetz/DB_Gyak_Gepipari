@@ -17,4 +17,10 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Components\Pages\StudentDB\Edit.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -23,7 +23,7 @@ namespace BlazorApp.Model
         public string? LName { get; set; }
 
         [Required]
-        public DateTime Birthday { get; set; }
+        public DateTime Birthday { get; set; } = DateTime.Now;
 
         [Required]
         [MaxLength(50)]

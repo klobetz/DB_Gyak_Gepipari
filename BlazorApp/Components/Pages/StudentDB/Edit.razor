@@ -24,6 +24,34 @@ else
                     <InputNumber id="om" @bind-Value="EditStudentDB.StudentId" class="form-control" />
                     <ValidationMessage For="()=>EditStudentDB.StudentId" class="text-danger" />
                 </div>
+               
+                <div class="mb-3">
+                    <label for="om" class="form-label">Vezetéknév</label>
+                    <InputText id="om" @bind-Value="EditStudentDB.FName" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.FName" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="om" class="form-label">Keresztnév</label>
+                    <InputText id="om" @bind-Value="EditStudentDB.LName" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.LName" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="om" class="form-label">Születési idő</label>
+                    <InputDate id="om" @bind-Value="EditStudentDB.Birthday" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.Birthday" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="om" class="form-label">Város</label>
+                    <InputText id="om" @bind-Value="EditStudentDB.City" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.City" class="text-danger" />
+                </div>
+
+                <button type="submit" class="btn btn-danger">save</button>
+                <a href="/sudentindex" class="btn btn-success">Back to the Student List</a>
+
             </EditForm>
         </div>
     </div>
