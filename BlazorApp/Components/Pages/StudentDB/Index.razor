@@ -43,30 +43,31 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-<table class="table">
-    <thead>
-        <tr>
-            <th>Oktatási azonosító</th>
-            <th>Név</th>
-            <th>szül. idő</th>
-            <th>Város</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var data in DB.Students)
-        {
-            <tr>
-                <td>@data.StudentId</td>
-                <td>@data.GetFullname()</td>
-                <td>@data.Birthday.ToShortDateString()</td>
-                <td>@data.City</td>
-                <td>@data.ShowData</td>
-            </tr>
-        }
-    </tbody>
-</table>
-</div>
+    <div class="col-10 md-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Oktatási azonosító</th>
+                    <th>Név</th>
+                    <th>szül. idő</th>
+                    <th>Város</th>
+                    <th>Állapot</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var data in DB.Students)
+                {
+                    <tr>
+                        <td>@data.StudentId</td>
+                        <td>@data.GetFullname()</td>
+                        <td>@data.Birthday.ToShortDateString()</td>
+                        <td>@data.City</td>
+                        <td>@data.ShowData</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="row">
