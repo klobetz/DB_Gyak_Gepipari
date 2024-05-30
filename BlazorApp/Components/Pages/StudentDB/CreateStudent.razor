@@ -59,9 +59,15 @@
     [SupplyParameterFromForm]
     public Student StudentDB { get; set; } = new();
 
+    //inicializálás közben az alapértékeket beállítom (mint ha konstruktor lenne.)
+    protected override void OnInitialized()
+    {
+        StudentDB.ShowData = true; 
+    }
 
     private async Task AddStudent()
     {
+        //StudentDB.ShowData = true; //ez az egyik megoldás
         DB.Students.Add(StudentDB);
         await DB.SaveChangesAsync();
         NavManager.NavigateTo("/sudentindex");

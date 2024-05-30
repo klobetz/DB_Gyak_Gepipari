@@ -1,0 +1,89 @@
+﻿@page "/deletestudentlogical"
+@using BlazorApp.Model
+@using Microsoft.EntityFrameworkCore
+@inject BlazorApp.Data.MyDBContext DB
+@inject NavigationManager NavManager
+
+<h3>DeleteStudent Logical</h3>
+<hr />
+
+<div>
+    @if (student is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">OM azonosító</dt>
+            <dd class="col-sm-10">@student.StudentId</dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-2">Név</dt>
+            <dd class="col-sm-10">@student.GetFullname()</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Szükletési év</dt>
+            <dd class="col-sm-10">@student.Birthday</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Város</dt>
+            <dd class="col-sm-10">@student.City</dd>
+        </dl>
+        <EditForm method="post" Model="student" OnValidSubmit="DeleteUserLogical" FormName="delete" Enhance>
+            <button class="btn btn-danger" type="submit" disabled="@(student is null)">Delete</button>
+            <a href="/sudentindex" class="btn btn-primary">Back to Student List</a>
+        </EditForm>
+    }
+</div>
+
+
+@code {
+    Student? student;
+    //vagy
+    //public Student student = new();
+
+    //Id értékét egy HTTP kérésből (lekérdezésből) automatikusan beolvasuk
+    [SupplyParameterFromQuery]
+    public long Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        student = await DB.Students.FirstOrDefaultAsync(x =>x.StudentId == Id);
+        //ellenőrzés és navigálás az errr oldalra
+        if(student is null)
+        {
+            NavManager.NavigateTo("/Error");
+        }
+    }
+
+    //törlés függvény
+    public async Task DeleteUserLogical()
+    {
+        DB.Attach(student!).State = EntityState.Modified;
+
+        try
+        {
+            student!.ShowData = false;
+            DB.Students.Update(student!);
+            await DB.SaveChangesAsync();
+            NavManager.NavigateTo("/sudentindex");
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!DeleteLogicalExp(student!.StudentId))
+            {
+                NavManager.NavigateTo("/error");
+            }
+            else
+            {
+                throw;
+            }           
+        }
+    }
+    bool DeleteLogicalExp(long xy)
+    {
+        return DB.Students.Any(e=>e.StudentId == xy);
+    }
+}

@@ -29,6 +29,8 @@ namespace BlazorApp.Model
         [MaxLength(50)]
         public string City { get; set; }
 
+        public bool ShowData { get; set; } = true;
+
         public string GetFullname()
         {
             return $"{FName} {LName}";

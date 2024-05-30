@@ -22,7 +22,7 @@
             </select>
         </div>
 
-        <QuickGrid Class="table" Items="DB.Students" Pagination="@pagination">
+        <QuickGrid Class="table" Items="DB.Students.Where(x=>x.ShowData)" Pagination="@pagination">
             <PropertyColumn Title="OM azonosító" Property="x=>x.StudentId" Sortable="true" />
             <PropertyColumn Title="OM2 azonosító" Property="x=>x.StudentId2" Sortable="true" />
             <PropertyColumn Title="Név" Property="x=>x.GetFullname()" />
@@ -33,6 +33,7 @@
                 <a href="@($"editstudent?Id={student.StudentId}")" class="btn btn-info">edit</a>
                 <a href="@($"detailsstudent?Id={student.StudentId}")" class="btn btn-success">detals</a>
                 <a href="@($"deletestudent?Id={student.StudentId}")" class="btn btn-danger">delete</a>
+                <a href="@($"deletestudentlogical?Id={student.StudentId}")" class="btn btn-danger">delete logical</a>
             </TemplateColumn>
         </QuickGrid>
 
@@ -41,7 +42,8 @@
     </div>
 </div>
 
-
+<div class="row">
+    <div class="col-md-12">
 <table class="table">
     <thead>
         <tr>
@@ -59,10 +61,13 @@
                 <td>@data.GetFullname()</td>
                 <td>@data.Birthday.ToShortDateString()</td>
                 <td>@data.City</td>
+                <td>@data.ShowData</td>
             </tr>
         }
     </tbody>
 </table>
+</div>
+</div>
 
 <div class="row">
     <div class="card-container mt-2 col-2">
