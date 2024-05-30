@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BlazorApp.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp.Model
 {
@@ -6,9 +7,7 @@ namespace BlazorApp.Model
     {
         [RegularExpression(@"^.{12,12}$")]       
         [Required]
-        public long StudentId { get; set; }
-
-        
+        public long StudentId { get; set; }        
         
         [RegularExpression(@"^\d{12}$", ErrorMessage ="valami")]
         [MaxLength(12)]
@@ -23,6 +22,7 @@ namespace BlazorApp.Model
         public string? LName { get; set; }
 
         [Required]
+        [StudentBDValidation]
         public DateTime Birthday { get; set; }
 
         [Required]
